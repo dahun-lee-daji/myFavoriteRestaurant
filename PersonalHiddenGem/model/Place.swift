@@ -30,4 +30,22 @@ struct Place {
     var cordinate: CLLocationCoordinate2D {
         return CLLocationCoordinate2DMake(latitude, longitude)
     }
+    init(tempLatitude: CLLocationDegrees, tempLongitude: CLLocationDegrees, tempName: String, tempReview: Int, tempFoodType: FoodType, tempFoodImage: UIImage?) {
+        
+        latitude = tempLatitude
+        longitude = tempLongitude
+        name = tempName
+        reviews = tempReview
+        foodType = tempFoodType
+        foodImage = tempFoodImage
+    }
+    init(tempLatitude: CLLocationDegrees, tempLongitude: CLLocationDegrees) {
+        self.init(tempLatitude: tempLatitude, tempLongitude: tempLongitude, tempName: "", tempReview: 0, tempFoodType: FoodType.기타, tempFoodImage: nil)
+    
+    }
+    init() {
+        self.init(tempLatitude: CLLocationDegrees.init(), tempLongitude: CLLocationDegrees.init(), tempName: "", tempReview: 0, tempFoodType: FoodType.기타, tempFoodImage: nil)
+    
+    }
+    
 }
