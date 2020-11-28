@@ -32,7 +32,7 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" image="plus" catalog="system"/>
                                                     <connections>
-                                                        <action selector="addAnnotation:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7Ww-DM-9bz"/>
+                                                        <action selector="addReviewPoint:" destination="BYZ-38-t0r" eventType="touchUpInside" id="TWh-dX-jux"/>
                                                     </connections>
                                                 </button>
                                             </barButtonItem>
@@ -67,7 +67,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="sh1-Mz-ugn"/>
                     <connections>
-                        <outlet property="appleMap" destination="NUy-js-rPQ" id="FA8-fg-DFX"/>
+                        <outlet property="appleMap" destination="NUy-js-rPQ" id="NpM-5i-DXf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

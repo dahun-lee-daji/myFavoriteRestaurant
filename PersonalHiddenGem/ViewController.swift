@@ -32,13 +32,34 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         
     }
     
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard annotation is MKPointAnnotation else { return nil }
+
+        let identifier = "Annotation"
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+
+        if annotationView == nil {
+            annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            annotationView!.canShowCallout = true
+        } else {
+            annotationView!.annotation = annotation
+        }
+
+        return annotationView
+    }
+    
+    
+    
     @IBAction func addReviewPoint(_ sender: UIButton){
         print("btn clicked")
         //annotation을 core||db에 저장하는 내용 필요.
         //일시적으로 현재 맵 중심에 annotation을 놓기.
-        let temp3 :CLLocationCoordinate2D = .init(latitude: 35.555555, longitude: 35.555555)
+        let temp3 :CLLocationCoordinate2D = .init(latitude: 37.715133, longitude: 126.734086)
         let temp4 = MKPointAnnotation()
         temp4.coordinate = temp3
+        temp4.title = "test"
+        temp4.subtitle = "test"
+        
         appleMap.addAnnotation(temp4)
         
         
