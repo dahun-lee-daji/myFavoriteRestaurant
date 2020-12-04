@@ -10,12 +10,30 @@ import UIKit
 import MapKit
 
 struct Place {
-    enum FoodType {
-        case 양식
-        case 일식
-        case 중식
-        case 한식
-        case 기타
+    
+    enum FoodType : Int {
+        case 양식 = 0
+        case 일식 = 1
+        case 중식 = 2
+        case 한식 = 3
+        case 기타 = 4
+        
+        func toString() -> String {
+            switch self.rawValue {
+            case 0:
+                return "양식"
+            case 1:
+                return "일식"
+            case 2:
+                return "중식"
+            case 3:
+                return "한식"
+            case 4:
+                return "기타"
+            default:
+                return "오류"
+            }
+        }
     }
     
     let latitude: CLLocationDegrees

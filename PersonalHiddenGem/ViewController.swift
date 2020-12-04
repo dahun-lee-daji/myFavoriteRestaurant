@@ -15,18 +15,21 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     @IBOutlet var addAnnotationBtn : UIButton!
     let locationManager : CLLocationManager! = .init()
     var places: [Place] = []
-    var currentPlace : Place = .init()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // 저장된 annotation을 불러오는 내용 필요.
         // Do any additional setup after loading the view.
         
-        getLocationAuthorization()
         locationManager.delegate = self
+        getLocationAuthorization()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.startUpdatingLocation()
         
+        appleMap.isZoomEnabled = true
+        appleMap.isPitchEnabled = true
+        appleMap.isRotateEnabled = true
+        appleMap.isScrollEnabled = true
         appleMap.showsUserLocation = true
         
         
@@ -54,13 +57,20 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         print("btn clicked")
         //annotation을 core||db에 저장하는 내용 필요.
         //일시적으로 현재 맵 중심에 annotation을 놓기.
-        let temp3 :CLLocationCoordinate2D = .init(latitude: 37.715133, longitude: 126.734086)
-        let temp4 = MKPointAnnotation()
-        temp4.coordinate = temp3
-        temp4.title = "test"
-        temp4.subtitle = "test"
         
-        appleMap.addAnnotation(temp4)
+        
+        var currentPlace : Place = .init()
+        
+        let tempCurrentCoodinate :CLLocationCoordinate2D = .init(latitude: appleMap.centerCoordinate.latitude, longitude: appleMap.centerCoordinate.longitude)
+        
+        callDetailView(tempCurrentCoodinate)
+        
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = tempCurrentCoodinate
+        annotation.title = "test"
+        annotation.subtitle = "test"
+        
+        appleMap.addAnnotation(annotation)
         
         
     }
@@ -74,11 +84,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     }
     
     
-    func callDetailView(){
+    func callDetailView(_ cooperate : CLLocationCoordinate2D){
         let detailStoryboard = UIStoryboard.init(name: "Detail", bundle: nil)
-        guard let playerVC = detailStoryboard.instantiateViewController(identifier: "DetailViewController") as? DetailViewController else {return}
+        guard let detailVC = detailStoryboard.instantiateViewController(identifier: "DetailViewController") as? DetailViewController else {return}
+        detailVC.tempCurrentCoordinate = cooperate
         
-        present(playerVC, animated: true, completion: nil)
+        present(detailVC, animated: true, completion: nil)
         
     }
     

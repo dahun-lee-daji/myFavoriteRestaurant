@@ -7,16 +7,17 @@
 //
 
 import UIKit
+import MapKit
 import Foundation
 
 class DetailViewController: UIViewController {
     
     @IBOutlet weak var shopName: UITextField!
     @IBOutlet weak var foodImage: UIImageView!
-    @IBOutlet weak var foodType: UITextField!
-    @IBOutlet weak var foodReview: UITextField!
+    @IBOutlet weak var foodType: UISegmentedControl!
+    @IBOutlet weak var foodReview: UISegmentedControl!
     let imagePicker = UIImagePickerController()
-    
+    var tempCurrentCoordinate : CLLocationCoordinate2D = .init()
     
     @IBAction func modifyFoodImage(_ sender: UIButton) {
         
@@ -34,7 +35,7 @@ class DetailViewController: UIViewController {
     }
     
     @IBAction func saveReview(_ sender: UIButton) {
-        
+        let reviewData : Place = .init(tempLatitude: tempCurrentCoordinate.latitude, tempLongitude: tempCurrentCoordinate.longitude, tempName: shopName.text!, tempReview: foodReview.selectedSegmentIndex, tempFoodType: Place.FoodType(rawValue: foodType.selectedSegmentIndex) ?? Place.FoodType.기타, tempFoodImage: foodImage.image!)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
