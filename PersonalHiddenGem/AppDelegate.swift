@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -30,6 +31,44 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the user discards a scene session.
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
+    }
+    
+    lazy var persistentContainer: NSPersistentContainer = {
+        let container = NSPersistentContainer(name: "Model")
+        container.loadPersistentStores(completionHandler: { (storeDesctiption, error) in
+                                       if let error = error as NSError? {
+                                       //place this implementation with code to habdle theerror appropriately
+                                       
+                                       /*
+                                        Typical reasons for an error here include:
+                                         * 부모 경로 누락, 만들수 없음, 쓰기 비허가 상태
+                                         * 영구 저장소 접근할 수 없음, 장치가 잠금되었을 때 접근허가 또는 데이터 보호 문제
+                                         * 용량 부족
+                                         * The store가 현재 모델 버전에 migrate 할 수 없음
+                                       */
+                                        //fatalError("Unresolved error \(error), \(error.userInfo)")
+                                         
+                                       }
+                                   }
+        )
+        return container
+        
+    }()
+    
+    func saveContext () {
+        let context = persistentContainer.viewContext
+        
+        if context.hasChanges {
+            do {
+                try context.save()
+            } catch{
+                // 에러 잡는 구문으로 바꾸기
+                let nserror = error as NSError
+                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+            }
+        }
+        
+        
     }
 
 

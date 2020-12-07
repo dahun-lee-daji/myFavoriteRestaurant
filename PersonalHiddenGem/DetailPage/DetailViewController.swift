@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import Foundation
+import CoreData
 
 class DetailViewController: UIViewController {
     
@@ -35,8 +36,33 @@ class DetailViewController: UIViewController {
     }
     
     @IBAction func saveReview(_ sender: UIButton) {
-        let reviewData : Place = .init(tempLatitude: tempCurrentCoordinate.latitude, tempLongitude: tempCurrentCoordinate.longitude, tempName: shopName.text!, tempReview: foodReview.selectedSegmentIndex, tempFoodType: Place.FoodType(rawValue: foodType.selectedSegmentIndex) ?? Place.FoodType.기타, tempFoodImage: foodImage.image!)
+        let reviewData : sPlace = .init(tempLatitude: tempCurrentCoordinate.latitude, tempLongitude: tempCurrentCoordinate.longitude, tempName: shopName.text!, tempReview: foodReview.selectedSegmentIndex, tempFoodType: sPlace.FoodType(rawValue: foodType.selectedSegmentIndex) ?? sPlace.FoodType.기타, tempFoodImage: foodImage.image!)
+    
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        let entity = NSEntityDescription.entity(forEntityName: "AnnoPlace", in: context)
+        print(entity?.name ?? "엔티티 안잡아짐")
+        
+        if let entity = entity {
+            let place = NSManagedObject(entity: entity, insertInto: context)
+            place.setValue(reviewData.latitude, forKey: "latitude")
+            place.setValue(reviewData.longitude, forKey: "longitude")
+            place.setValue(reviewData.name, forKey: "name")
+            place.setValue(reviewData.reviews, forKey: "reviews")
+            place.setValue(reviewData.foodType.rawValue, forKey: "foodType")
+            place.setValue(reviewData.foodImage, forKey: "foodImage")
+        }
+        
+        /*
+        do{
+            try context.save()
+        } catch  {
+            print(error.localizedDescription)
+            }
+         */
     }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

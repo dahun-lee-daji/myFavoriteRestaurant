@@ -14,7 +14,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     @IBOutlet var appleMap : MKMapView!
     @IBOutlet var addAnnotationBtn : UIButton!
     let locationManager : CLLocationManager! = .init()
-    var places: [Place] = []
+    var places: [sPlace] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,7 +59,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         //일시적으로 현재 맵 중심에 annotation을 놓기.
         
         
-        var currentPlace : Place = .init()
+        var currentPlace : sPlace = .init()
         
         let tempCurrentCoodinate :CLLocationCoordinate2D = .init(latitude: appleMap.centerCoordinate.latitude, longitude: appleMap.centerCoordinate.longitude)
         

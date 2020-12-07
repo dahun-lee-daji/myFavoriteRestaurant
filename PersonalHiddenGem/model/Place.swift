@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-struct Place {
+struct sPlace {
     
     enum FoodType : Int {
         case 양식 = 0
